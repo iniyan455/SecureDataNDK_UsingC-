@@ -1,4 +1,4 @@
-package com.digitap.secureapi
+package com.iniyan.secureapi
 
 import org.junit.Test
 

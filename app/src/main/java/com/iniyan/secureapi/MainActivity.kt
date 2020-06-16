@@ -1,4 +1,4 @@
-package com.digitap.secureapi
+package com.iniyan.secureapi
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
