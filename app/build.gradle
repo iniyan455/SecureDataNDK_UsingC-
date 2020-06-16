@@ -12,11 +12,15 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
         externalNativeBuild {
             cmake {
-                cppFlags ""
+                // cppFlags are configured according to your selection
+                // of "Customize C++ Support", in this codelab's
+                //    "Create a Sample App with the C++ Template",
+                //    step 6
+                cppFlags "-std=c++11"
             }
         }
     }
@@ -26,12 +30,16 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
     }
+
     externalNativeBuild {
         cmake {
             path "src/main/cpp/CMakeLists.txt"
             version "3.10.2"
         }
+
+
     }
 }
 
