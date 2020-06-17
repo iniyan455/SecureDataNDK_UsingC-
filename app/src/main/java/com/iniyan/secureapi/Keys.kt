@@ -6,7 +6,7 @@ object Keys  {
         System.loadLibrary("native-lib")
     }
 
-    internal external fun data(buildType:String): Array<String?>?
+     external fun data(buildType:String): Array<String?>?
     /**
      * A native method that is implemented by the 'native-lib' native library,
      * which is packaged with this application.

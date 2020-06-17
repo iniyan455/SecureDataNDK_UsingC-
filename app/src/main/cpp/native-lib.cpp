@@ -8,10 +8,10 @@ using namespace std;
 
 jstring envirnoment_stage= (jstring) "stage", envirnoment_uat= (jstring) "uat";
 
-char* TAG="native_lib";
+char* TAG= (char *)"native_lib";
 
 extern "C" JNIEXPORT jstring JNICALL
-Java_com_digitap_secureapi_Keys_stringFromJNI(
+Java_com_iniyan_secureapi_Keys_stringFromJNI(
         JNIEnv* env,
         jobject /* this */) {
     std::string hello = "Hero function";
@@ -21,7 +21,7 @@ Java_com_digitap_secureapi_Keys_stringFromJNI(
 
 extern "C"
 JNIEXPORT jobject JNICALL
-Java_com_digitap_secureapi_Keys_objectJNI(JNIEnv *env, jobject thiz, jstring firstname,
+Java_com_iniyan_secureapi_Keys_objectJNI(JNIEnv *env, jobject thiz, jstring firstname,
                                                   jstring second_name) {
     char returnString[100];
     const char *fN = env->GetStringUTFChars(firstname, nullptr);
@@ -34,10 +34,10 @@ Java_com_digitap_secureapi_Keys_objectJNI(JNIEnv *env, jobject thiz, jstring fir
     env->ReleaseStringUTFChars(second_name, lN);
 
     if(envirnoment_stage == envirnoment_uat){
-        __android_log_print(ANDROID_LOG_INFO, TAG, "Envirnoment  == %s", envirnoment_stage);
+        __android_log_print(ANDROID_LOG_INFO, TAG, "Envirnoment  == %s", (char *)envirnoment_stage);
 
     }else {
-        __android_log_print(ANDROID_LOG_INFO, TAG, "Envirnoment != %s", envirnoment_uat);
+        __android_log_print(ANDROID_LOG_INFO, TAG, "Envirnoment != %s", (char *)envirnoment_uat);
 
     }
 
@@ -53,7 +53,7 @@ Java_com_digitap_secureapi_Keys_objectJNI(JNIEnv *env, jobject thiz, jstring fir
 
 extern "C"
 JNIEXPORT jobjectArray JNICALL
-Java_com_digitap_secureapi_Keys_data(JNIEnv *env, jobject thiz, jstring build_type) {
+Java_com_iniyan_secureapi_Keys_data(JNIEnv *env, jobject thiz, jstring build_type) {
     jobjectArray ret;
     int i;
 
@@ -68,13 +68,13 @@ Java_com_digitap_secureapi_Keys_data(JNIEnv *env, jobject thiz, jstring build_ty
     __android_log_print(ANDROID_LOG_INFO, TAG, "Input Data    == %s", envirnoment_data);
 
     if(strcmp(reinterpret_cast<const char *>(envirnoment_stage), envirnoment_data) == 0){
-        message[0]= "123456";
-        message[1]="abcdefghijklmnoproqss";
+        message[0]= (char *)"123456";
+        message[1]=(char *)"abcdefghijklmnoproqss";
         __android_log_print(ANDROID_LOG_INFO, TAG, "Envirnoment  == %s", envirnoment_data);
 
     }else {
-        message[0]= "123456";
-        message[1]="abcdefghijklmnoproqss";
+        message[0]= (char *)"123456";
+        message[1]=(char *) "abcdefghijklmnoproqss";
         __android_log_print(ANDROID_LOG_INFO, TAG, "Envirnoment != %s", envirnoment_data);
 
     }
@@ -93,7 +93,41 @@ Java_com_digitap_secureapi_Keys_data(JNIEnv *env, jobject thiz, jstring build_ty
 
 extern "C" JNIEXPORT jstring
 JNICALL
-Java_com_digitap_secureapi_Keys_apiKey(JNIEnv *env, jobject object) {
+Java_com_iniyan_secureapi_Keys_apiKey(JNIEnv *env, jobject object) {
     std::string api_key = "sample_apikey";
     return env->NewStringUTF(api_key.c_str());
+}extern "C"
+JNIEXPORT jobjectArray JNICALL
+Java_com_iniyan_secureapi_MainActivity_data(JNIEnv *env, jobject thiz, jstring build_type) {
+    jobjectArray ret;
+    int i;
+
+    char *message[2];
+    ret= (jobjectArray)env->NewObjectArray(2,
+                                           env->FindClass("java/lang/String"),
+                                           env->NewStringUTF(""));
+
+
+    char * envirnoment_data=(char *) env -> GetStringUTFChars(build_type, nullptr);
+
+    __android_log_print(ANDROID_LOG_INFO, TAG, "Input Data    == %s", envirnoment_data);
+
+    if(strcmp(reinterpret_cast<const char *>(envirnoment_stage), envirnoment_data) == 0){
+        message[0]= (char *)"123456";
+        message[1]=(char *) "abcdefghijklmnoproqss";
+        __android_log_print(ANDROID_LOG_INFO, TAG, "Envirnoment  == %s", envirnoment_data);
+
+    }else {
+        message[0]= (char *)"123456";
+        message[1]=(char *)"abcdefghijklmnoproqss";
+        __android_log_print(ANDROID_LOG_INFO, TAG, "Envirnoment != %s", envirnoment_data);
+
+    }
+
+    for(i=0;i<2;i++) {
+        env->SetObjectArrayElement(
+                ret,i,env->NewStringUTF(message[i]));
+    }
+
+    return(ret);
 }
